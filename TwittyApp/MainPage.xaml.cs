@@ -29,22 +29,27 @@ namespace TwittyApp {
 			string twitterHandle = tbxTwitterHandle.Text;
 
 			if (DeviceNetworkInformation.IsNetworkAvailable) {
-				var service = new TwitterService(apiKey, apiKeySecret);
-				service.AuthenticateWith(accessToken, accessTokenSecret);
-				llsSearchTwitterResults.ItemsSource = null;
+				try {
+					var service = new TwitterService(apiKey, apiKeySecret);
+					service.AuthenticateWith(accessToken, accessTokenSecret);
+					llsSearchTwitterResults.ItemsSource = null;
 
-				// Use ListTweetsOnUserTimeline to get all tweets from user. From the TweetSharp lib.
-				service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions() {
-					ScreenName = twitterHandle
-				}, (tweets, response) => {
+					System.Collections.Generic.IEnumerable<TweetSharp.TwitterStatus> tweetsTest = null;
+					service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions() {
+						ScreenName = twitterHandle
+					}, (tweets, response) => {
 
-					if (response.StatusCode == HttpStatusCode.OK) {
-						this.Dispatcher.BeginInvoke(() => {
-							tblkHeader.Text = twitterHandle;
-							llsSearchTwitterResults.ItemsSource = tweets.ToList();
-						});
-					}
-				});
+						if (response.StatusCode == HttpStatusCode.OK) {
+							this.Dispatcher.BeginInvoke(() => {
+								tblkHeader.Text = twitterHandle;
+								llsSearchTwitterResults.ItemsSource = tweets.ToList();
+								tweetsTest = tweets;
+							});
+						}
+					});
+				} catch (Exception ex) {
+					MessageBox.Show("Oops! Can't fetch this user's tweets! Ex: " + ex.ToString());
+				}
 			} else {
 
 			}
