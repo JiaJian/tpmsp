@@ -120,8 +120,14 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="TwittyApp_2014_09_05_02_34_00.sap" />
+    <None Include="TwittyApp_2014_09_05_02_35_47.sap" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app-icon.png" />
+    <Content Include="app-screenshot-720p.png" />
+    <Content Include="app-screenshot-wvga.png" />
+    <Content Include="app-screenshot-wxga.png" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
